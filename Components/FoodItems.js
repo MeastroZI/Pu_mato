@@ -1,13 +1,12 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native';
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5"
-import FontAwesome from "@expo/vector-icons/FontAwesome"
+import { EvilIcons, Ionicons, FontAwesome5, FontAwesome } from '@expo/vector-icons';
 
 
-export default function FoodItems({ Name, discription, price, Place }) {
+export default function FoodItems({ Name, discription, price, Place, URL }) {
     return (
         <View style={styles.Items}>
-            <Image style={styles.Image} source={require('../Imgs/pexels-ash-376464.jpg')}>
+            <Image style={styles.Image} source={URL}>
             </Image>
 
             <View style={styles.textContainer}>
@@ -19,6 +18,8 @@ export default function FoodItems({ Name, discription, price, Place }) {
                 </Text>
                 <View style={styles.PricePlace}>
                     <Text style={{ fontWeight: "300", fontSize: 15 }}>
+                        <EvilIcons name="location" size={20} color="black" />
+
                         {Place}
                     </Text>
                     <Text style={{ fontWeight: "300", fontSize: 15 }}>
@@ -50,10 +51,12 @@ const styles = StyleSheet.create({
 
 
         shadowColor: 'black',
-        shadowOffset: { width: 5, height: 10 },
-        shadowOpacity: 0.5,
+        shadowOffset: { width: 5, height: 16 },
+        shadowOpacity: 0.8,
         shadowRadius: 5,
-        elevation: 7,
+        elevation: 10,
+
+
 
 
 
@@ -66,6 +69,7 @@ const styles = StyleSheet.create({
     textContainer: {
         width: '100%',
         flexDirection: "column",
+
         gap: 5,
         top: 5
 
@@ -85,7 +89,7 @@ const styles = StyleSheet.create({
     PricePlace: {
         width: "100%",
         textAlignVertical: 'center',
-        paddingHorizontal: 10,
+        paddingHorizontal: 5,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: "space-between",
