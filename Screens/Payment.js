@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         textAlign: "left",
         paddingHorizontal: 10,
-        marginVertical: 15,
+        marginVertical: 16,
         gap: 10,
 
 
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     },
     Text: {
         fontSize: 30,
-
+        marginVertical: 6,
         letterSpacing: 0.2,
         fontWeight: "600",
 
@@ -256,6 +256,7 @@ const styles = StyleSheet.create({
     QuantityBar: {
         position: "absolute",
         right: 15,
+
         flexDirection: "row",
         backgroundColor: "white",
         height: 50,

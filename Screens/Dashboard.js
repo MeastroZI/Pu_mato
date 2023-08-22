@@ -1,13 +1,16 @@
 import React from 'react'
-import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView, Keyboard } from 'react-native';
+import { useState, useEffect } from 'react';
 import FoodItems from '../Components/FoodItems';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { useHeaderHeight } from '@react-navigation/elements'
+
+
 
 export default function Dashboard() {
+
   const navigation = useNavigation();
-  const height = useHeaderHeight()
+
   const Data = [
     { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 1000, Place: "Pit", URL: require('../Imgs/pexels-ash-376464.jpg') },
 
@@ -21,13 +24,18 @@ export default function Dashboard() {
 
   ]
 
+
+
   const HandleItemClick = (item) => {
 
     navigation.navigate('Payment', { selectedFoodItem: item });
-    const height = useHeaderHeight()
+
   }
   return (
     <View style={styles.Container}>
+
+
+
       <SafeAreaView style={styles.FoodItemsCont}>
         <View style={styles.searchContainer}>
           <AntDesign name="search1" size={20} color="#aaa" style={styles.searchIcon} />
@@ -38,12 +46,17 @@ export default function Dashboard() {
 
           />
         </View>
+
+
+
+
+
         <View style={styles.FlatListContainer}>
           <FlatList
 
             data={Data}
             renderItem={({ item }) =>
-              <TouchableOpacity style={styles.viewChild} onPress={() => { HandleItemClick(item) }} activeOpacity={0.7}>
+              <TouchableOpacity style={styles.viewChild} onPress={() => { HandleItemClick(item) }} activeOpacity={0.5}>
                 <FoodItems Name={item.Name} discription={item.discription} price={item.price} Place={item.Place} URL={item.URL} />
               </TouchableOpacity>}>
 
@@ -59,19 +72,29 @@ export default function Dashboard() {
 
 
 
+
+
+
+
+        {/* <View style={NabarHide ? styles.HideNavbar : styles.HideNavbar} /> */}
+
+
+
+
       </SafeAreaView>
 
-      <View style={styles.Navbar}>
-
-      </View>
 
 
 
-    </View>
+
+
+    </View >
+
   )
 }
 
 const styles = StyleSheet.create({
+
   Container: {
     height: "100%",
     width: "100%",
@@ -81,14 +104,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // justifyContent: "center"
   },
-  Navbar: {
-    height: 60,
-    width: "100%",
-    backgroundColor: "black",
-    position: "absolute",
-    bottom: 0,
 
-  },
   FoodItemsCont: {
     width: "100%",
     // height: "100%",
@@ -139,6 +155,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
   },
+
+  FoodGalleryContainer: {
+    height: 100,
+    width: '100%',
+    backgroundColor: "grey",
+    marginVertical: 10,
+
+
+
+  }
 
 
 
