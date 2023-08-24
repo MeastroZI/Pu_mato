@@ -33,10 +33,10 @@ export default function Dashboard() {
   }
   return (
     <View style={styles.Container}>
+      <SafeAreaView style={styles.FoodItemsCont} >
 
 
 
-      <SafeAreaView style={styles.FoodItemsCont}>
         <View style={styles.searchContainer}>
           <AntDesign name="search1" size={20} color="#aaa" style={styles.searchIcon} />
           <TextInput
@@ -81,13 +81,13 @@ export default function Dashboard() {
 
 
 
+
+
+
+
+
+
       </SafeAreaView>
-
-
-
-
-
-
     </View >
 
   )
@@ -100,9 +100,9 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#d0c7db",
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
-    // justifyContent: "center"
+    justifyContent: "center"
   },
 
   FoodItemsCont: {
@@ -164,7 +164,13 @@ const styles = StyleSheet.create({
 
 
 
-  }
+  },
+  FoodItemsCont: {
+
+    height: "100%",
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+
+  },
 
 
 

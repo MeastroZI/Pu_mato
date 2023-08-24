@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, Keyboard, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Keyboard, TouchableOpacity, SafeAreaView, Platform } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Dashboard from './Screens/Dashboard';
 import Payment from './Screens/Payment';
-import FoodGallary from './Screens/FoodGallary';
+import ShopGallary from './Screens/ShopGallary';
 import { Entypo } from '@expo/vector-icons';
+import ShopePage from './Screens/ShopePage';
 
 
 export default function App() {
@@ -55,9 +56,10 @@ export default function App() {
             headerShown: false
           }}
         >
-          <Stack.Screen name='Payment' component={Payment} options={{ headerTitle: null, animation: 'none' }} />
           <Stack.Screen name='Dashboard' component={Dashboard} options={{ headerTitle: null, animation: 'none' }} />
-          <Stack.Screen name='FoodGallary' component={FoodGallary} options={{ headerTitle: null, animation: 'none' }} />
+          <Stack.Screen name='Payment' component={Payment} options={{ headerTitle: null, animation: 'none' }} />
+          <Stack.Screen name='FoodGallary' component={ShopGallary} options={{ headerTitle: null, animation: 'none' }} />
+          <Stack.Screen name='ShopePage' component={ShopePage} options={{ headerTitle: null, animation: 'none' }} />
 
         </Stack.Navigator>
       </NavigationContainer>
@@ -109,6 +111,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "red",
     alignItems: 'center',
     justifyContent: "center"
-  }
+  },
+
 
 });

@@ -1,11 +1,14 @@
 import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import FoodShope from '../Components/FoodShope';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 
 
 
-export default function FoodGallary() {
+export default function ShopGallary() {
+    const navigation = useNavigation();
+
     const FoodGalleryData = [
         { Name: "Subway", Logo: require('../Imgs/103849129-Untitled-1.jpg') },
         { Name: "Pizza Hurts", Logo: require('../Imgs/Color-Pizza-Hut-Logo.jpg') },
@@ -14,6 +17,9 @@ export default function FoodGallary() {
         { Name: "Subway", Logo: require('../Imgs/pexels-ash-376464.jpg') },
         { Name: "Dominus", Logo: require('../Imgs/dominos-pizza-logo-0.png') },
     ]
+    const handleShopePress = (item) => {
+        navigation.navigate('ShopePage', { ShopeInfo: item })
+    }
     return (
         <View style={styles.FoodGalleryContainer}>
             <SafeAreaView style={styles.SafeAreaCont}>
@@ -37,7 +43,7 @@ export default function FoodGallary() {
 
                     contentContainerStyle={{ width: '100%' }}
                     renderItem={({ item }) => (
-                        <TouchableOpacity style={styles.ItemContainer}>
+                        <TouchableOpacity style={styles.ItemContainer} onPress={() => handleShopePress(item)}>
                             <FoodShope Name={item.Name} Logo={item.Logo} />
                         </TouchableOpacity>
                     )}
