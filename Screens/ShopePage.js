@@ -30,9 +30,12 @@ export default function ShopePage() {
     }
     return (
         <View style={styles.Container}>
-            < >
 
+
+            <SafeAreaView style={styles.SafeAreaCont}>
                 <View style={styles.ImgAndNameContainer}>
+
+
                     <TouchableOpacity
                         onPress={() => { navigation.goBack() }}
                         style={styles.backBtn}>
@@ -55,7 +58,8 @@ export default function ShopePage() {
 
 
                 </FlatList>
-            </>
+
+            </SafeAreaView>
         </View>
     )
 }
@@ -67,6 +71,14 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         alignItems: 'center'
     },
+    SafeAreaCont: {
+        width: "100%",
+        height: "100%",
+
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+
+    },
+
     backBtn: {
         height: 45,
         width: 50,
@@ -91,9 +103,8 @@ const styles = StyleSheet.create({
         width: "100%",
         height: 230,
         backgroundColor: 'black',
-        // opacity: 0.2,
-        borderBottomEndRadius: 20,
-        borderBottomStartRadius: 20,
+        // borderRadius: 20,
+
         overflow: 'hidden',
 
     },

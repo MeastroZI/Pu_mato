@@ -11,6 +11,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { RadioButton } from 'react-native-paper';
 import { Provider as PaperProvider } from 'react-native-paper';
 import FoodItems from '../Components/FoodItems';
+import { addOrder } from '../SharedVariable/OrderListVar';
 
 
 
@@ -42,6 +43,10 @@ export default function Payment() {
     const handleInputQuantity = (num) => {
         num >= 1 ? setQuantity(num * 1) : setQuantity(1)
 
+    }
+
+    const HandleOrder = () => {
+        addOrder(selectedFoodItem)
     }
 
 
@@ -159,7 +164,7 @@ export default function Payment() {
                         &nbsp;
                         {selectedFoodItem.price * Quantity}
                     </Text>
-                    <TouchableOpacity style={styles.orderBtn}>
+                    <TouchableOpacity style={styles.orderBtn} onPress={HandleOrder}>
                         <Text style={{ color: "white", fontSize: 18, fontWeight: "500" }}>Order Now</Text>
                     </TouchableOpacity>
 

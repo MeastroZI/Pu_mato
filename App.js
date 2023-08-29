@@ -8,6 +8,7 @@ import Payment from './Screens/Payment';
 import ShopGallary from './Screens/ShopGallary';
 import { Entypo } from '@expo/vector-icons';
 import ShopePage from './Screens/ShopePage';
+import Orders from './Screens/Orders';
 
 
 export default function App() {
@@ -33,7 +34,7 @@ export default function App() {
 
     if (name == "Order") {
 
-      navigationRef.current?.navigate("FoodGallary");
+      navigationRef.current?.navigate("Orders");
     }
     else if (name == "Shop") {
 
@@ -57,6 +58,7 @@ export default function App() {
           }}
         >
           <Stack.Screen name='Dashboard' component={Dashboard} options={{ headerTitle: null, animation: 'none' }} />
+          <Stack.Screen name='Orders' component={Orders} options={{ headerTitle: null, animation: 'none' }} />
           <Stack.Screen name='Payment' component={Payment} options={{ headerTitle: null, animation: 'none' }} />
           <Stack.Screen name='FoodGallary' component={ShopGallary} options={{ headerTitle: null, animation: 'none' }} />
           <Stack.Screen name='ShopePage' component={ShopePage} options={{ headerTitle: null, animation: 'none' }} />
