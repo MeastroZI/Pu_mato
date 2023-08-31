@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, SafeAreaView, StatusBar, Platform, ScrollView, Button, TouchableOpacity, TextInput } from
     'react-native';
+import QuantityBar from '../Components/QuantityBar';
 
 
 
@@ -21,6 +22,7 @@ import { addOrder } from '../SharedVariable/OrderListVar';
 export default function Payment() {
     const [selectedValue, setSelectedValue] = useState('option1');
     const [Quantity, setQuantity] = useState(1);
+    const [IsOrderInProgress, setOrderInProgress] = useState(false);
     const navigation = useNavigation();
 
 
@@ -31,22 +33,30 @@ export default function Payment() {
     const handleValueChange = (value) => {
         setSelectedValue(value);
     };
-    const handleChangeInQuantity = (Oper) => {
-        if (Oper == "add") {
-            setQuantity(Quantity + 1)
-        }
-        else {
-            Quantity > 1 ? setQuantity(Quantity - 1) : "";
-        }
-    }
+    // const handleChangeInQuantity = (Oper) => {
+    //     if (Oper == "add") {
+    //         setQuantity(Quantity + 1)
+    //     }
+    //     else {
+    //         Quantity > 1 ? setQuantity(Quantity - 1) : "";
+    //     }
+    // }
 
-    const handleInputQuantity = (num) => {
-        num >= 1 ? setQuantity(num * 1) : setQuantity(1)
+    // const handleInputQuantity = (num) => {
+    //     num >= 1 ? setQuantity(num * 1) : setQuantity(1)
 
-    }
+    // }
 
     const HandleOrder = () => {
-        addOrder(selectedFoodItem)
+        if (!IsOrderInProgress) {
+            if (addOrder(selectedFoodItem, Quantity)) {
+                setOrderInProgress(true)
+            }
+
+        }
+        else {
+            navigation.navigate('Orders', { QNT: Quantity })
+        }
     }
 
 
@@ -81,7 +91,14 @@ export default function Payment() {
                             {selectedFoodItem.discription}
                         </Text>
 
-                        <View style={styles.QuantityBar}>
+
+                        <View style={{ position: 'absolute', right: 0, }}>
+
+                            <QuantityBar SetQuantityProp={setQuantity} QuantityProp={Quantity} />
+
+                        </View>
+
+                        {/* <View style={styles.QuantityBar}>
                             <TouchableOpacity style={styles.BTN} onPress={() => handleChangeInQuantity("minus")}>
                                 <Ionicons name="remove-sharp" size={26} color="black" />
                             </TouchableOpacity>
@@ -97,7 +114,7 @@ export default function Payment() {
                             <TouchableOpacity style={styles.BTN} onPress={() => handleChangeInQuantity("add")}>
                                 <Ionicons name="md-add-sharp" size={26} color="black" />
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                     </View>
 
                     <View style={{ width: "100%", height: 1, backgroundColor: 'black', marginHorizontal: 'auto' }} />
@@ -164,8 +181,13 @@ export default function Payment() {
                         &nbsp;
                         {selectedFoodItem.price * Quantity}
                     </Text>
-                    <TouchableOpacity style={styles.orderBtn} onPress={HandleOrder}>
-                        <Text style={{ color: "white", fontSize: 18, fontWeight: "500" }}>Order Now</Text>
+
+
+                    <TouchableOpacity style={[
+                        styles.orderBtn,
+                        { backgroundColor: IsOrderInProgress ? "white" : "#fe4e02" },
+                    ]} onPress={HandleOrder}>
+                        <Text style={{ color: IsOrderInProgress ? "#fe4e02" : "white", fontSize: 18, fontWeight: "500" }}>{IsOrderInProgress ? "Order in progress" : "Order Now"}</Text>
                     </TouchableOpacity>
 
                 </View>
@@ -258,52 +280,52 @@ const styles = StyleSheet.create({
 
 
     },
-    QuantityBar: {
-        position: "absolute",
-        right: 15,
+    // QuantityBar: {
+    //     position: "absolute",
+    //     right: 15,
 
-        flexDirection: "row",
-        backgroundColor: "white",
-        height: 50,
-        width: 120,
-        alignItems: "center",
-        justifyContent: "space-around",
-        borderRadius: 20,
+    //     flexDirection: "row",
+    //     backgroundColor: "white",
+    //     height: 50,
+    //     width: 120,
+    //     alignItems: "center",
+    //     justifyContent: "space-around",
+    //     borderRadius: 20,
 
-        shadowColor: 'black', // Set the shadow color explicitly
-        shadowOpacity: 1,
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowRadius: 2,
-        elevation: 2,
-
-
-    },
-    BTN: {
-        // backgroundColor: "grey",
-        height: 40,
-        width: 40,
-        alignItems: "center",
-        justifyContent: "center",
-
-    },
+    //     shadowColor: 'black', // Set the shadow color explicitly
+    //     shadowOpacity: 1,
+    //     shadowOffset: {
+    //         width: 0,
+    //         height: 1,
+    //     },
+    //     shadowRadius: 2,
+    //     elevation: 2,
 
 
+    // },
+    // BTN: {
+    //     // backgroundColor: "grey",
+    //     height: 40,
+    //     width: 40,
+    //     alignItems: "center",
+    //     justifyContent: "center",
 
-    NumInp: {
-        // backgroundColor: "grey",
-        height: 30,
-        width: 35,
-        textAlign: 'center',
-        fontSize: 18,
-        fontWeight: '500',
-        color: '#fe4e02'
+    // },
 
 
 
-    },
+    // NumInp: {
+    //     // backgroundColor: "grey",
+    //     height: 30,
+    //     width: 35,
+    //     textAlign: 'center',
+    //     fontSize: 18,
+    //     fontWeight: '500',
+    //     color: '#fe4e02'
+
+
+
+    // },
 
     PaymentBoard: {
         width: "100%",
@@ -376,7 +398,7 @@ const styles = StyleSheet.create({
     orderBtn: {
         height: 50,
         width: 180,
-        backgroundColor: "#fe4e02",
+
         // textAlign: "center
         alignItems: 'center',
         borderRadius: 5,

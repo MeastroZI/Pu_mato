@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, TextInput, TouchableOpacity, KeyboardAvoidingView, Image } from 'react-native';
 import { EvilIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
+import QuantityBar from './QuantityBar';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
 
 export default function OrdersItem({ itemInfo, cancleOrder }) {
+    const Route = useRoute();
+    // console.log(itemInfo)
+    // const QNT = 1
+
+
+    const [Quantity, setQuantity] = useState(itemInfo.QNT)
     const OrderProgress = 3;
 
 
@@ -24,7 +33,7 @@ export default function OrdersItem({ itemInfo, cancleOrder }) {
                         {/* <FontAwesome5 name="rupee-sign" size={15} color="black" /> */}
                         <FontAwesome name="rupee" size={23} color="grey" />
                         &nbsp;
-                        {itemInfo.price}
+                        {itemInfo.price * Quantity}
                     </Text>
 
 
@@ -63,6 +72,13 @@ export default function OrdersItem({ itemInfo, cancleOrder }) {
 
 
                 </View>
+
+
+
+                <View style={styles.QuantityBarContainer}>
+
+                    <QuantityBar QuantityProp={Quantity} SetQuantityProp={setQuantity} sizeRatio={0.7} BorderRadius={10} Editable={false} />
+                </View>
             </View>
 
 
@@ -74,7 +90,7 @@ export default function OrdersItem({ itemInfo, cancleOrder }) {
 
 const styles = StyleSheet.create({
     itemsContainer: {
-        height: 100,
+        height: 130,
         width: '100%',
         backgroundColor: '#f0eeec',
         flexDirection: 'row',
@@ -185,6 +201,12 @@ const styles = StyleSheet.create({
 
         alignItems: 'center',
         justifyContent: 'center'
-    }
+    },
+    QuantityBarContainer: {
+        width: '100%',
+        alignItems: 'center'
+
+    },
+
 })
 

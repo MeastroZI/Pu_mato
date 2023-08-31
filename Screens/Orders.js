@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, TextInput, TouchableOpacity, KeyboardAvoidingView, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import OrdersItem from '../Components/OrdersItem';
 import { items, cancleOrder } from '../SharedVariable/OrderListVar';
 
 export default function Orders() {
   const navigation = useNavigation();
+
   const [cancleOrderUpdate, CancleOrder] = useState(true);
 
 
@@ -33,19 +34,21 @@ export default function Orders() {
           <Text style={styles.TextHeader}>My Orders</Text>
 
         </View>
+        {/* <KeyboardAvoidingView style={{ flex: 1 }} behavior="position"> */}
 
         <FlatList
           data={items}
           style={styles.FlatListContainer}
 
           renderItem={({ item }) => (
-            <View style={{ marginVertical: 10, paddingHorizontal: 10, alignItems: 'center' }} >
+            <TouchableOpacity style={{ marginVertical: 10, paddingHorizontal: 10, alignItems: 'center' }} activeOpacity={0.8} >
               <OrdersItem itemInfo={item} cancleOrder={CancleOrderCallback} />
-            </View>
+            </TouchableOpacity>
           )}>
 
 
         </FlatList>
+        {/* </KeyboardAvoidingView> */}
       </SafeAreaView>
     </View>
   )
@@ -75,7 +78,7 @@ const styles = StyleSheet.create({
     left: 25,
     alignItems: 'center',
     justifyContent: "center",
-
+    zIndex: 2,
 
     elevation: 5, // Shadow for Android
     shadowColor: '#000', // Shadow for iOS
