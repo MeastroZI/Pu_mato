@@ -1,5 +1,8 @@
 {
   "expo": {
+    "permissions": [
+      "CAMERA"
+    ],
     "name": "puMato",
     "slug": "puMato",
     "version": "1.0.0",

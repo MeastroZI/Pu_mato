@@ -3,15 +3,16 @@ import { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, Keyboard, TouchableOpacity, SafeAreaView, Platform } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Dashboard from './Screens/Dashboard';
-import Payment from './Screens/Payment';
-import ShopGallary from './Screens/ShopGallary';
+import Dashboard from '../Screens/Dashboard';
+import Payment from '../Screens/Payment';
+import ShopGallary from '../Screens/ShopGallary';
 import { Entypo } from '@expo/vector-icons';
-import ShopePage from './Screens/ShopePage';
-import Orders from './Screens/Orders';
+import ShopePage from '../Screens/ShopePage';
+import Orders from '../Screens/Orders';
 
 
-export default function App() {
+
+export default function BuyerInterface() {
   const [NabarHide, SetNavbarHide] = useState(false)
   const navigationRef = useRef();
 
@@ -58,6 +59,7 @@ export default function App() {
           }}
         >
           <Stack.Screen name='Dashboard' component={Dashboard} options={{ headerTitle: null, animation: 'none' }} />
+
           <Stack.Screen name='Orders' component={Orders} options={{ headerTitle: null, animation: 'none' }} />
           <Stack.Screen name='Payment' component={Payment} options={{ headerTitle: null, animation: 'none' }} />
           <Stack.Screen name='FoodGallary' component={ShopGallary} options={{ headerTitle: null, animation: 'none' }} />
