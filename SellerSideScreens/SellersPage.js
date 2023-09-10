@@ -42,9 +42,12 @@ export default function SellersPage() {
     const handleEditImage = () => {
         navigation.navigate('cameraInterface')
     }
-    const handleAddBtn = () => [
+    const handleAddBtn = () => {
 
-    ]
+    }
+    const HandleSellersItemPress = (item) => {
+        navigation.navigate('ItemsDetail', { ItemDetail: item })
+    }
     return (
         <SafeAreaView style={styles.SafeAreaStyle} >
             <View style={styles.Container}>
@@ -68,7 +71,7 @@ export default function SellersPage() {
                     // horizontal={false}
                     numColumns={2}
                     renderItem={({ item }) => (
-                        <TouchableOpacity style={{ flex: 0.5, alignItems: 'center', justifyContent: 'center', padding: 10, height: 200 }}>
+                        <TouchableOpacity onPress={() => { HandleSellersItemPress(item) }} style={{ flex: 0.5, alignItems: 'center', justifyContent: 'center', padding: 10, height: 200 }}>
                             <SellersPageFoodItems ItemInfo={item} />
                         </TouchableOpacity>
                     )}
