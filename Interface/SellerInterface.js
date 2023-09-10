@@ -3,7 +3,9 @@ import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, Te
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SellersPage from '../SellerSideScreens/SellersPage';
-import CameraInterface from '../SellerSideComponents/CameraInterface';
+import CameraInterface from '../SellerSideScreens/CameraInterface';
+// import ImageEditingPage from '../SellerSideScreens/ImageEditingPage';
+import ItemsDetail from '../SellerSideScreens/ItemsDetail';
 
 
 export default function SellerInterface() {
@@ -11,13 +13,17 @@ export default function SellerInterface() {
     return (
         // <SellersPage />
         <NavigationContainer>
-            <Stack.Navigator initialRouteName='SellersPage'
+            <Stack.Navigator initialRouteName='ItemsDetail'
                 screenOptions={{
                     headerShown: false
                 }}>
 
                 <Stack.Screen name='SellersPage' component={SellersPage} options={{ headerTitle: null, animation: 'none' }} />
                 <Stack.Screen name='cameraInterface' component={CameraInterface} options={{ headerTitle: null, animation: 'none' }} />
+                {/* <Stack.Screen name='ImageEditingPage' component={ImageEditingPage} options={{ headerTitle: null, animation: 'none' }} /> */}
+
+                <Stack.Screen name='ItemsDetail' component={ItemsDetail} options={{ headerTitle: null, animation: 'none' }} />
+
 
 
             </Stack.Navigator>
