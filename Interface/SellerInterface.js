@@ -13,7 +13,7 @@ export default function SellerInterface() {
     return (
         // <SellersPage />
         <NavigationContainer>
-            <Stack.Navigator initialRouteName='ItemsDetail'
+            <Stack.Navigator initialRouteName='SellersPage'
                 screenOptions={{
                     headerShown: false
                 }}>

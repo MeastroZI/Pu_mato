@@ -6,14 +6,21 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 export default function ItemsDetail() {
     const navigate = useNavigation();
     const route = useRoute();
-    // const { item } = route.params;
-    const item = { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 1000, Place: "Pit", URL: require('../Imgs/pexels-ash-376464.jpg'), id: 1 }
+    const { ItemInfo } = route.params;
+    // const ItemInfo = { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 1000, Place: "Pit", URL: require('../Imgs/pexels-ash-376464.jpg'), id: 1 }
 
-    const [itemName, setItemName] = useState(item.Name);
-    const [itemPrice, setItemPrice] = useState(item.price);
-    const [ItemDetail, setItemDetail] = useState(item.discription);
+    const [itemName, setItemName] = useState(ItemInfo.Name);
+    const [itemPrice, setItemPrice] = useState(ItemInfo.price);
+    const [ItemDetail, setItemDetail] = useState(ItemInfo.discription);
     const [IsSaveBtn, SetShowSaveBtn] = useState(false)
     // console.log(itemName + itemPrice + ItemDetail)
+
+    const HandleSaveBtn = () => {
+        ItemInfo.Name = itemName;
+        ItemInfo.price = itemPrice;
+        ItemInfo.discription = ItemDetail;
+        navigate.navigate('SellersPage')
+    }
     return (
         <SafeAreaView style={{
             height: "100%",
@@ -21,7 +28,7 @@ export default function ItemsDetail() {
         }} >
 
             <View style={styles.Container}>
-                <Image source={item.URL} style={{ width: '100%', height: 200, borderRadius: 10 }}></Image>
+                <Image source={ItemInfo.URL} style={{ width: '100%', height: 200, borderRadius: 10 }}></Image>
 
                 <View style={styles.form}>
 
@@ -84,7 +91,8 @@ export default function ItemsDetail() {
                 </View>
 
 
-                <TouchableOpacity style={{ display: IsSaveBtn ? "flex" : "none", position: 'absolute', bottom: 0, left: 0, height: 50, width: '100%', alignItems: 'center', justifyContent: 'center', backgroundColor: '#5ce678', }}>
+                <TouchableOpacity style={{ display: IsSaveBtn ? "flex" : "none", position: 'absolute', bottom: 0, left: 0, height: 50, width: '100%', alignItems: 'center', justifyContent: 'center', backgroundColor: '#5ce678', }}
+                    onPress={HandleSaveBtn}>
                     <Text style={{ fontSize: 20, fontWeight: '500', letterSpacing: 3, textTransform: 'uppercase' }}>Save</Text>
                 </TouchableOpacity>
 

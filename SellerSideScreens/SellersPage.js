@@ -36,6 +36,8 @@ export default function SellersPage() {
         { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 100000, Place: "Piet", URL: require('../Imgs/pexels-jane-doan-1099680.jpg'), id: 7 },
 
     ]
+
+    console.log(Data)
     // const HandleCamera = () => {
     //     Ask_permission()
     // }
@@ -46,7 +48,7 @@ export default function SellersPage() {
 
     }
     const HandleSellersItemPress = (item) => {
-        navigation.navigate('ItemsDetail', { ItemDetail: item })
+        navigation.navigate('ItemsDetail', { ItemInfo: item })
     }
     return (
         <SafeAreaView style={styles.SafeAreaStyle} >
