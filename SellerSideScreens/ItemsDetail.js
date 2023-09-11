@@ -17,8 +17,8 @@ export default function ItemsDetail() {
 
     // }
     const iteminfoo = useRef(ItemInfo).current
-    // const imageUri = EditedImageUri || ItemInfo ? (EditedImageUri ? { uri: EditedImageUri } : ItemInfo.URL) : require("../Imgs/noImg.jpeg")
-    const imageUri = EditedImageUri ? { uri: EditedImageUri } : ItemInfo.URL
+    const imageUri = EditedImageUri || ItemInfo ? (EditedImageUri ? { uri: EditedImageUri } : ItemInfo.URL) : require("../Imgs/noImg.jpeg")
+    // const imageUri = EditedImageUri ? { uri: EditedImageUri } : ItemInfo.URL
 
     // const ItemInfo = { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 1000, Place: "Pit", URL: require('../Imgs/pexels-ash-376464.jpg'), id: 1 }
 
