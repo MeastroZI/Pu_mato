@@ -52,7 +52,9 @@ export default function SellersPage() {
         navigation.navigate('cameraInterface')
     }
     const handleAddBtn = () => {
-
+        const emptyItemDetail = { Name: "", discription: "", price: 0, Place: "", URL: require('../Imgs/noImg.jpeg'), id: Data.length + 1 }
+        Data.push({ ...emptyItemDetail })
+        navigation.navigate('ItemsDetail', { ItemInfo: Data[Data.length - 1] })
     }
     const HandleSellersItemPress = (item) => {
         navigation.navigate('ItemsDetail', { ItemInfo: item })
@@ -87,7 +89,7 @@ export default function SellersPage() {
                 />
 
 
-                <TouchableOpacity style={styles.AddBtn} onPress={handleAddBtn}>
+                <TouchableOpacity style={styles.AddBtn} onPress={handleAddBtn} >
                     <FontAwesome name="plus-circle" size={60} color="#085163" />
                 </TouchableOpacity>
 

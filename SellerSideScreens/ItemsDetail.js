@@ -8,17 +8,25 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 export default function ItemsDetail() {
     const navigation = useNavigation();
     const route = useRoute();
-    const { ItemInfo, EditedImageUri } = route.params;
+    const ItemInfo = route.params && route.params.ItemInfo ? route.params.ItemInfo : undefined;
+    // const { ItemInfo, EditedImageUri } = route.params;
+    const EditedImageUri = route.params && route.params.EditedImageUri ? route.params.EditedImageUri : undefined;
+
+
+    // if (route.params) {
+
+    // }
     const iteminfoo = useRef(ItemInfo).current
+    // const imageUri = EditedImageUri || ItemInfo ? (EditedImageUri ? { uri: EditedImageUri } : ItemInfo.URL) : require("../Imgs/noImg.jpeg")
     const imageUri = EditedImageUri ? { uri: EditedImageUri } : ItemInfo.URL
 
     // const ItemInfo = { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 1000, Place: "Pit", URL: require('../Imgs/pexels-ash-376464.jpg'), id: 1 }
 
-    const [itemName, setItemName] = useState(iteminfoo.Name);
-    const [itemPrice, setItemPrice] = useState(iteminfoo.price);
-    const [ItemDetail, setItemDetail] = useState(iteminfoo.discription);
+    const [itemName, setItemName] = useState(iteminfoo ? iteminfoo.Name : "");
+    const [itemPrice, setItemPrice] = useState(iteminfoo ? iteminfoo.price : 0);
+    const [ItemDetail, setItemDetail] = useState(iteminfoo ? iteminfoo.discription : "");
     const [IsSaveBtn, SetShowSaveBtn] = useState(false)
-    const [showError, setShowError] = useState("Name cant be empty  , price cant be less than 0");
+    const [showError, setShowError] = useState("Name cant be empty, price cant be less than 0");
     // console.log(itemName + itemPrice + ItemDetail)
 
     const fadeAnim = useRef(new Animated.Value(0)).current
@@ -68,7 +76,7 @@ export default function ItemsDetail() {
                     <Ionicons name="ios-arrow-back-sharp" size={30} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.editBtn} onPress={handleEditImage}>
-                    <MaterialIcons name="edit" size={30} color="black" />
+                    <Ionicons name="camera" size={45} color="black" />
 
                 </TouchableOpacity>
                 <View style={styles.form}>
