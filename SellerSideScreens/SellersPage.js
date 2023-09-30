@@ -44,10 +44,7 @@ export default function SellersPage() {
 
 
 
-    // console.log(Data)
-    // const HandleCamera = () => {
-    //     Ask_permission()
-    // }
+   
     const handleEditImage = () => {
         navigation.navigate('cameraInterface')
     }
@@ -58,6 +55,14 @@ export default function SellersPage() {
     }
     const HandleSellersItemPress = (item) => {
         navigation.navigate('ItemsDetail', { ItemInfo: item })
+    }
+    const HandleNavbarClick = (params)=>{
+        if (params == "Home") {
+            navigation.navigate('SellersPage')
+        }
+        else if (params == "Orders") {
+            console.log("go to order")
+        }
     }
     return (
         <SafeAreaView style={styles.SafeAreaStyle} >
@@ -90,13 +95,23 @@ export default function SellersPage() {
 
 
                 <TouchableOpacity style={styles.AddBtn} onPress={handleAddBtn} >
-                    <FontAwesome name="plus-circle" size={60} color="#085163" />
+                    <FontAwesome name="plus-circle" size={70} color="#0288ffab" />
                 </TouchableOpacity>
 
 
 
 
+            <View style={styles.Navbar}>
+                <TouchableOpacity Name="Home" onPress={()=>HandleNavbarClick("Home")}>
 
+                    <FontAwesome name="home" size={30} color="white" />
+                </TouchableOpacity>
+                <TouchableOpacity Name="Orders" onPress={()=>HandleNavbarClick("Orders")}>
+                    <FontAwesome name="list-alt" size={30} color="white" />
+
+                </TouchableOpacity>
+            </View>
+                
             </View >
         </SafeAreaView >
     )
@@ -141,6 +156,7 @@ const styles = StyleSheet.create({
     },
     FlatlistContainer: {
         flex: 1,
+        zIndex : 0,
         // height: '100%',
         // width: '100%'
         // backgroundColor: 'red'
@@ -149,13 +165,26 @@ const styles = StyleSheet.create({
 
     AddBtn: {
         position: 'absolute',
-        width: '100%',
+        // width: '100%',
         // height: 30,
-        bottom: 30,
-        left: 0,
+        bottom: 60,
+        right:  10,
         // backgroundColor: 'blue',
         alignItems: 'center',
         opacity: 0.5,
+    },
+    Navbar:{
+        width : '100%' ,
+        height : 50 ,
+        backgroundColor : 'black' ,
+        flexDirection : 'row',
+        // position : 'absolute',
+        bottom : 0 ,
+        // zIndex : 2 ,
+        alignItems : 'center' ,
+        justifyContent : 'space-around'        
+        
+
     }
 
 })
