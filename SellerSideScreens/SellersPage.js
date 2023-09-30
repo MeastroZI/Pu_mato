@@ -61,7 +61,8 @@ export default function SellersPage() {
             navigation.navigate('SellersPage')
         }
         else if (params == "Orders") {
-            console.log("go to order")
+            navigation.navigate('SellerOrderList')
+           
         }
     }
     return (

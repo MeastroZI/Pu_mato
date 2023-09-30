@@ -7,6 +7,8 @@ import CameraInterface from '../SellerSideScreens/CameraInterface';
 // import ImageEditingPage from '../SellerSideScreens/ImageEditingPage';
 import ItemsDetail from '../SellerSideScreens/ItemsDetail';
 import CameraInterfaceForItem from '../SellerSideScreens/CameraInterfaceForItem';
+import SellerOrderList from '../SellerSideScreens/SellerOrdersList';
+import OrderDetails from '../SellerSideScreens/OrderDetails';
 
 
 export default function SellerInterface() {
@@ -14,7 +16,7 @@ export default function SellerInterface() {
     return (
         // <SellersPage />
         <NavigationContainer>
-            <Stack.Navigator initialRouteName='SellersPage'
+            <Stack.Navigator initialRouteName='SellerOrderList'
                 screenOptions={{
                     headerShown: false
                 }}>
@@ -25,6 +27,8 @@ export default function SellerInterface() {
 
                 <Stack.Screen name='ItemsDetail' component={ItemsDetail} options={{ headerTitle: null, animation: 'none' }} />
                 <Stack.Screen name='CameraInterfaceForItem' component={CameraInterfaceForItem} options={{ headerTitle: null, animation: 'none' }} />
+                <Stack.Screen name='SellerOrderList' component={SellerOrderList} options={{ headerTitle: null, animation: 'none' }} />
+                <Stack.Screen name='OrderDetails' component={OrderDetails} options={{ headerTitle: null, animation: 'none' }} />
 
 
 
