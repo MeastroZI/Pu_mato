@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react'
 import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, TextInput, TouchableOpacity, KeyboardAvoidingView, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
-
 import SellerOrdersItem from '../SellerSideComponents/SellerOrdersItem';
-
 import { items, cancleOrder } from '../SharedVariable/OrderListVar';
+
+import NavigationBar from '../SellerSideComponents/NavigationBar';
 
 export default function SellerOrderList() {
   const navigation = useNavigation();
@@ -53,6 +53,7 @@ export default function SellerOrderList() {
 
         </FlatList>
         {/* </KeyboardAvoidingView> */}
+        <NavigationBar/>
       </SafeAreaView>
     </View>
   )

@@ -7,6 +7,7 @@ import * as MediaLibrary from 'expo-media-library';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import SellersPageFoodItems from '../SellerSideComponents/SellersPageFoodItems';
+import NavigationBar from '../SellerSideComponents/NavigationBar';
 
 
 export default function SellersPage() {
@@ -102,16 +103,7 @@ export default function SellersPage() {
 
 
 
-            <View style={styles.Navbar}>
-                <TouchableOpacity Name="Home" onPress={()=>HandleNavbarClick("Home")}>
-
-                    <FontAwesome name="home" size={30} color="white" />
-                </TouchableOpacity>
-                <TouchableOpacity Name="Orders" onPress={()=>HandleNavbarClick("Orders")}>
-                    <FontAwesome name="list-alt" size={30} color="white" />
-
-                </TouchableOpacity>
-            </View>
+            <NavigationBar/>
                 
             </View >
         </SafeAreaView >
@@ -174,19 +166,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         opacity: 0.5,
     },
-    Navbar:{
-        width : '100%' ,
-        height : 50 ,
-        backgroundColor : 'black' ,
-        flexDirection : 'row',
-        // position : 'absolute',
-        bottom : 0 ,
-        // zIndex : 2 ,
-        alignItems : 'center' ,
-        justifyContent : 'space-around'        
-        
-
-    }
+  
 
 })
 
