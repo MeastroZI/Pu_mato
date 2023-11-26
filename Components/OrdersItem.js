@@ -17,7 +17,7 @@ export default function OrdersItem({ itemInfo, cancleOrder }) {
 
     return (
         <View style={styles.itemsContainer}>
-            <Image style={styles.image} source={itemInfo.URL} />
+            <Image style={styles.image} source={{uri:itemInfo.URL}} />
             <View style={styles.InfoContainer}>
 
                 <TouchableOpacity onPress={() => cancleOrder(itemInfo.id)} style={styles.CancleOrderBtn}>

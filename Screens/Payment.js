@@ -68,7 +68,7 @@ export default function Payment() {
             <SafeAreaView style={styles.FoodItemsCont}>
                 <ScrollView style={styles.ScrollContainer}>
                     <View>
-                        <Image style={styles.Image} source={selectedFoodItem.URL}></Image>
+                        <Image style={styles.Image} source={{uri:selectedFoodItem.URL}}></Image>
                         <TouchableOpacity
                             onPress={() => { navigation.goBack() }}
                             style={styles.backBtn}>
@@ -161,7 +161,7 @@ export default function Payment() {
                                 labelStyle={styles.radioButtonLabel}
                                 value="option3"
                                 style={styles.radioButton}
-                                labelStyle={styles.radioButtonLabel}
+                                
                                 color="black"
                                 uncheckedColor="gray"
                                 disabled

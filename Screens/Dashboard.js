@@ -4,28 +4,32 @@ import { useState, useEffect } from 'react';
 import FoodItems from '../Components/FoodItems';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import fetchData from '../Apis/Fetch_DashBoard_data.js';
 
 
 
 
 export default function Dashboard() {
-
+  
   const navigation = useNavigation();
+  const [Data , setData] = useState([])
+  
+  useEffect(()=>{
+    fetchingData();
+  } , [])
+  
+  console.log(Data);
+  const fetchingData = async ()=>{
+    console.log ("dfdfsdfd")
+    
+    const data = await fetchData()
+    setData ([...Data , ...data]);
+  }
+  
 
-  const Data = [
-    { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 1000, Place: "Pit", URL: require('../Imgs/pexels-ash-376464.jpg') },
-
-    { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 10, Place: "Pit", URL: require('../Imgs/pexels-jane-doan-1099680.jpg') },
-
-    { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 1000, Place: "Piet", URL: require('../Imgs/pexels-jane-doan-1099680.jpg') },
-
-    { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 100, Place: "Piet", URL: require('../Imgs/pexels-jane-doan-1099680.jpg') },
-
-    { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 100000, Place: "Piet", URL: require('../Imgs/pexels-jane-doan-1099680.jpg') },
-
-  ]
-
-
+  const HandleEndReached = ()=>{
+      fetchingData();
+  }
 
   const HandleItemClick = (item) => {
 
@@ -57,10 +61,15 @@ export default function Dashboard() {
 
             data={Data}
             renderItem={({ item }) =>
+              
               <TouchableOpacity style={styles.viewChild} onPress={() => { HandleItemClick(item) }} activeOpacity={0.5}>
                 <FoodItems Name={item.Name} discription={item.discription} price={item.price} Place={item.Place} URL={item.URL} />
-              </TouchableOpacity>}>
-
+              </TouchableOpacity>}
+            keyExtractor={(item) => item.id.toString()}
+            onEndReached={HandleEndReached}
+            onEndReachedThreshold={0.7}
+              >
+            
 
           </FlatList>
 

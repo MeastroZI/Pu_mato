@@ -6,7 +6,8 @@ import { EvilIcons, Ionicons, FontAwesome5, FontAwesome } from '@expo/vector-ico
 export default function FoodItems({ Name, discription, price, Place, URL }) {
     return (
         <View style={styles.Items}>
-            <Image style={styles.Image} source={URL}>
+           
+            <Image style={styles.Image} source={{uri:URL}}>
             </Image>
 
             <View style={styles.textContainer}>
