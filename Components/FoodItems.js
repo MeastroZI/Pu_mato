@@ -1,9 +1,10 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { EvilIcons, Ionicons, FontAwesome5, FontAwesome } from '@expo/vector-icons';
+import { memo } from 'react/cjs/react.production.min';
 
 
-export default function FoodItems({ Name, discription, price, Place, URL }) {
+const Fooditems = memo(function FoodItems({ Name, discription, price, Place, URL }) {
     return (
         <View style={styles.Items}>
            
@@ -33,7 +34,7 @@ export default function FoodItems({ Name, discription, price, Place, URL }) {
             </View>
         </View >
     )
-}
+})
 
 const styles = StyleSheet.create({
     Items: {
@@ -116,3 +117,5 @@ const styles = StyleSheet.create({
     }
 
 })
+
+export default Fooditems

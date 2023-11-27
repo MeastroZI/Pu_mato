@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView, Keyboard } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect , useRef } from 'react';
 import FoodItems from '../Components/FoodItems';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -9,21 +9,26 @@ import fetchData from '../Apis/Fetch_DashBoard_data.js';
 
 
 
+
 export default function Dashboard() {
   
   const navigation = useNavigation();
-  const [Data , setData] = useState([])
-  
+  const [newData , setNewData] = useState([])
+  const Data = useRef([]);
+  console.log(newData)
   useEffect(()=>{
     fetchingData();
   } , [])
   
-  console.log(Data);
+  
   const fetchingData = async ()=>{
-    console.log ("dfdfsdfd")
+    console.log ("Under Featch")
     
     const data = await fetchData()
-    setData ([...Data , ...data]);
+    data.forEach((elm)=>{
+      Data.current.push(elm);
+        })
+    setNewData ([...data]);
   }
   
 
@@ -59,7 +64,7 @@ export default function Dashboard() {
         <View style={styles.FlatListContainer}>
           <FlatList
 
-            data={Data}
+            data={Data.current}
             renderItem={({ item }) =>
               
               <TouchableOpacity style={styles.viewChild} onPress={() => { HandleItemClick(item) }} activeOpacity={0.5}>
