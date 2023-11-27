@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, Te
 export default function FoodShope({ Name, Logo }) {
     return (
         <View style={styles.container}>
-            <Image style={styles.image} source={Logo} />
+            <Image style={styles.image} source={{uri:Logo}} />
             <Text style={styles.txt}>{Name}</Text>
 
         </View>

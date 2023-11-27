@@ -2,21 +2,33 @@ import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, Te
 import FoodShope from '../Components/FoodShope';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useEffect, useRef, useState } from 'react';
+import Fetch_Shope_Data from '../Apis/Fetch_Shope_Data';
 
 
 
 
 export default function ShopGallary() {
     const navigation = useNavigation();
+    const [FoodGalleryData, setFoodFalleryData] = useState([]);
+    const TeampAuthData = useRef({
+        Name: "Test",
+        Password: "Test"
+    }).current;
 
-    const FoodGalleryData = [
-        { Name: "Subway", Logo: require('../Imgs/103849129-Untitled-1.jpg') },
-        { Name: "Pizza Hurts", Logo: require('../Imgs/Color-Pizza-Hut-Logo.jpg') },
-        { Name: "Subway", Logo: require('../Imgs/pexels-ash-376464.jpg') },
-        { Name: "Dominus", Logo: require('../Imgs/dominos-pizza-logo-0.png') },
-        { Name: "Subway", Logo: require('../Imgs/pexels-ash-376464.jpg') },
-        { Name: "Dominus", Logo: require('../Imgs/dominos-pizza-logo-0.png') },
-    ]
+
+    useEffect(() => {
+        fetchShopeData();
+    }, [])
+    const fetchShopeData = () => {
+        Fetch_Shope_Data(TeampAuthData).then((data) => {
+            console.log(data);
+            setFoodFalleryData([...data])
+        }).catch((err) => {
+            throw err;
+        })
+    }
+
     const handleShopePress = (item) => {
         navigation.navigate('ShopePage', { ShopeInfo: item })
     }
@@ -33,24 +45,28 @@ export default function ShopGallary() {
 
                     />
                 </View>
-                <FlatList
+                {FoodGalleryData.length > 0 && (
+                    <FlatList
 
-                    data={FoodGalleryData}
+                        data={FoodGalleryData}
 
-                    style={{ width: "100%" }}
+                        style={{ width: "100%" }}
 
 
 
-                    contentContainerStyle={{ width: '100%' }}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity style={styles.ItemContainer} onPress={() => handleShopePress(item)}>
-                            <FoodShope Name={item.Name} Logo={item.Logo} />
-                        </TouchableOpacity>
-                    )}
+                        contentContainerStyle={{ width: '100%' }}
 
-                >
+                        renderItem={({ item }) => (
+                            <TouchableOpacity style={styles.ItemContainer} onPress={() => handleShopePress(item)}>
+                                <FoodShope Name={item.Name} Logo={item.Logo} />
+                            </TouchableOpacity>
+                        )}
 
-                </FlatList>
+                    >
+
+                    </FlatList>
+                )
+                }
             </SafeAreaView>
         </View>
 

@@ -42,7 +42,7 @@ export default function ShopePage() {
 
                         <Ionicons name="ios-arrow-back-sharp" size={30} color="black" />
                     </TouchableOpacity>
-                    <Image source={ShopeInfo.Logo} style={styles.imageStyle} />
+                    <Image source={{uri:ShopeInfo.Logo}} style={styles.imageStyle} />
                     <Text style={styles.ShopeNameTxt}>{ShopeInfo.Name} </Text>
 
                 </View>

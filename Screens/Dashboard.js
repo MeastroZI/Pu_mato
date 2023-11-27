@@ -24,11 +24,16 @@ export default function Dashboard() {
   const fetchingData = async ()=>{
     console.log ("Under Featch")
     
-    const data = await fetchData()
-    data.forEach((elm)=>{
-      Data.current.push(elm);
-        })
-    setNewData ([...data]);
+    // const data = await fetchData()
+    fetchData().then((data)=>{
+      data.forEach((elm)=>{
+        Data.current.push(elm);
+          })
+        setNewData ([...data]);
+
+    }).catch((error)=>{
+      console.log(`Server Problem : ${error}`)
+    })
   }
   
 
