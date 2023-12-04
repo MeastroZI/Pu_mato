@@ -3,20 +3,33 @@ import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, Te
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import OrdersItem from '../Components/OrdersItem';
+import fetchOrds from '../Apis/Fetch_Orders';
 
-import { items, cancleOrder } from '../SharedVariable/OrderListVar';
+// import { items, cancleOrder } from '../SharedVariable/OrderListVar';
 
 export default function Orders() {
   const navigation = useNavigation();
+  const [items , SetItems] = useState ([]) 
 
   const [cancleOrderUpdate, CancleOrder] = useState(true);
 
+  useEffect (()=>{
+    FetchOrders()
+  }, [])
 
+
+  const FetchOrders = () =>{
+    fetchOrds().then ((data)=>{
+      SetItems([...data])
+    }).catch ((err)=>{
+      console.log (err) ;
+    })
+  }
 
   const CancleOrderCallback = (id) => {
 
-    cancleOrder(id)
-    CancleOrder(!cancleOrderUpdate);
+    // cancleOrder(id)
+    // CancleOrder(!cancleOrderUpdate);
 
   }
 

@@ -26,6 +26,7 @@ export default function Dashboard() {
     
     // const data = await fetchData()
     fetchData().then((data)=>{
+      console.log(data)
       data.forEach((elm)=>{
         Data.current.push(elm);
           })

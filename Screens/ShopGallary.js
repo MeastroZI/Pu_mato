@@ -12,8 +12,8 @@ export default function ShopGallary() {
     const navigation = useNavigation();
     const [FoodGalleryData, setFoodFalleryData] = useState([]);
     const TeampAuthData = useRef({
-        Name: "Test",
-        Password: "Test"
+        UserName: "test",
+        Password: "test"
     }).current;
 
 
