@@ -3,7 +3,7 @@
 export default function Fetch_Shope_Data(AuthData) {
     if(AuthData){
         return (
-          fetch("http://192.168.1.11:8000/GetShope " , {
+          fetch("http://192.168.4.121:8000/GetShope " , {
               method : "POST" , 
               headers : {
                 'Content-Type':'application/json' 

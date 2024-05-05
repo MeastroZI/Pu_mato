@@ -13,7 +13,7 @@ export default async function fetchOrds ( ) {
     }
    
     try {
-        const response = await fetch("http://192.168.1.11:8000/Fetch_Orders" , Options)
+        const response = await fetch("http://192.168.4.121:8000/Fetch_Orders" , Options)
 
         if(!response.ok) {
             throw new Error (`Bhi error aya he :(   ERROR : ${response.Error}`)

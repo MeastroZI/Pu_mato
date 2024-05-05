@@ -5,5 +5,6 @@ import BuyerInterface from './Interface/BuyerInterface'
 export default function Index() {
     return (
         <BuyerInterface/>
+        // <SellerInterface/>
     )
 }
