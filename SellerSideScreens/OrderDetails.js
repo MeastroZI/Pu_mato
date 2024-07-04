@@ -6,10 +6,10 @@ import { EvilIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
 
 
 
-export default function OrderDetails() {
+export default function OrderDetails({navigation}) {
   const [ProgressStatus , setProgressStatus] = useState({Packed: false , Departed : false , Payment : false , Complete: false})
   const route = useRoute();
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const OrderInfo = route.params.itemDetail
   console.log(OrderInfo)
   HandlingPressingOnStatus = (params) => {
@@ -81,7 +81,7 @@ export default function OrderDetails() {
                     onPress={() => { navigation.goBack() }}
                     style={styles.backBtn}>
 
-                    <Ionicons name="ios-arrow-back-sharp" size={30} color="black" />
+                    <Ionicons name="arrow-back" size={30} color="black" />
                 </TouchableOpacity>
         <Image source={OrderInfo.URL} style={{ width: '100%', height: 200, borderRadius: 10 }}></Image>
         <View style={{ padding: 20, backgroundColor: '#f9f9f9', borderRadius: 10, margin: 10, alignItems: 'center' }}>

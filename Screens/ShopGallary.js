@@ -8,8 +8,8 @@ import Fetch_Shope_Data from '../Apis/Fetch_Shope_Data';
 
 
 
-export default function ShopGallary() {
-    const navigation = useNavigation();
+export default function ShopGallary({navigation}) {
+    // const navigation = useNavigation();
     const [FoodGalleryData, setFoodFalleryData] = useState([]);
     const TeampAuthData = useRef({
         UserName: "test",

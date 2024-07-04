@@ -1,14 +1,25 @@
- async function fetchData (AuthData) {
-    const UserData = {
-        UserName : "test" ,
-        Password : "test"
+
+import userDetails from "../SharedVariable/userDetails";
+async function fetchData (AuthData) {
+    console.log("function is called")
+    const userD = await userDetails()
+    console.log(userD)
+    if (!userD.sucess){
+        return userD;
     }
+    const payload = {
+        UserData : {
+            email: userD.Email,
+            password: userD.Password
+        }
+    }
+    const ip = process.env.EXPO_PUBLIC_API_IP;
  
   try {
-    const response = await fetch("http://192.168.4.121:8000/GetData", {
+    const response = await fetch(`http://${ip}:8000/GetData`, {
         method: "POST",
         headers :{'Content-Type': 'application/json'},
-        body : JSON.stringify(UserData)
+        body : JSON.stringify(payload)
        
     });
 
@@ -17,9 +28,10 @@
     }
 
     const data = await response.json();
+    // console.log(data)
     return data;
 } catch (error) {
-    console.error(`Fetch error for URL: http://192.168.1.11:8000/GetData -`, error);
+    // console.error(`Fetch error for URL: http://${ip}:8000/GetData -`, error);
     throw error;
 }
 };

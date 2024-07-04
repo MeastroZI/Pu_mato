@@ -1,12 +1,13 @@
 import React, { useRef, useState } from 'react'
 import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView, Keyboard, Image, Animated } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-
+import Loading from '../Components/loading';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 
-export default function ItemsDetail() {
-    const navigation = useNavigation();
+export default function ItemsDetail({ navigation }) {
+    // const navigation = useNavigation();
+    const [isLoading, setIsLoading] = useState(false);
     const route = useRoute();
     const ItemInfo = route.params && route.params.ItemInfo ? route.params.ItemInfo : undefined;
     // const { ItemInfo, EditedImageUri } = route.params;
@@ -42,21 +43,27 @@ export default function ItemsDetail() {
 
     }
     const HandleSaveBtn = () => {
+        console.log("under hadnin")
+        setIsLoading(true)
+        setTimeout(() => {
+            console.log("making it of")
+            setIsLoading(false)
 
-        if (itemName == "" || itemPrice <= 0) {
+            if (itemName == "" || itemPrice <= 0) {
 
-            Keyboard.dismiss()
+                Keyboard.dismiss()
 
-            StartFadeOffAnimation();
-        }
-        else {
-            iteminfoo.Name = itemName;
-            iteminfoo.price = itemPrice;
-            iteminfoo.discription = ItemDetail;
-            iteminfoo.URL = imageUri;
-            navigation.navigate('SellersPage', { ChangeDetail: iteminfoo })
+                StartFadeOffAnimation();
+            }
+            else {
+                iteminfoo.Name = itemName;
+                iteminfoo.price = itemPrice;
+                iteminfoo.discription = ItemDetail;
+                iteminfoo.URL = imageUri;
+                navigation.navigate('SellersPage', { ChangeDetail: iteminfoo })
 
-        }
+            }
+        }, 5000);
     }
     const handleEditImage = () => {
         navigation.navigate("CameraInterfaceForItem")
@@ -68,12 +75,13 @@ export default function ItemsDetail() {
         }} >
 
             <View style={styles.Container}>
+                <Loading isLoading={isLoading}></Loading>
                 <Image source={imageUri} style={{ width: '100%', height: 200, borderRadius: 10 }}></Image>
                 <TouchableOpacity
                     onPress={() => { navigation.goBack() }}
                     style={styles.backBtn}>
 
-                    <Ionicons name="ios-arrow-back-sharp" size={30} color="black" />
+                    <Ionicons name="arrow-back" size={30} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.editBtn} onPress={handleEditImage}>
                     <Ionicons name="camera" size={45} color="black" />
@@ -147,12 +155,6 @@ export default function ItemsDetail() {
                     onPress={HandleSaveBtn}>
                     <Text style={{ fontSize: 20, fontWeight: '500', letterSpacing: 3, textTransform: 'uppercase' }}>Save</Text>
                 </TouchableOpacity>
-
-
-
-
-
-
             </View>
         </SafeAreaView>
     )

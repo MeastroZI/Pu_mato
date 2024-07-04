@@ -7,23 +7,23 @@ import QuantityBar from '../Components/QuantityBar';
 
 import { useState } from 'react';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import { EvilIcons, Ionicons, FontAwesome5 } from '@expo/vector-icons';
+import { EvilIcons, Ionicons, FontAwesome5  ,AntDesign} from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { RadioButton } from 'react-native-paper';
 import { Provider as PaperProvider } from 'react-native-paper';
 import FoodItems from '../Components/FoodItems';
-import { addOrder } from '../SharedVariable/OrderListVar';
+import MakeOrders from '../Apis/Make_Orders';
 
 
 
 
 
 
-export default function Payment() {
+export default function Payment({navigation}) {
     const [selectedValue, setSelectedValue] = useState('option1');
     const [Quantity, setQuantity] = useState(1);
     const [IsOrderInProgress, setOrderInProgress] = useState(false);
-    const navigation = useNavigation();
+    // const navigation = useNavigation();
 
 
     const Route = useRoute();
@@ -49,7 +49,7 @@ export default function Payment() {
 
     const HandleOrder = () => {
         if (!IsOrderInProgress) {
-            if (addOrder(selectedFoodItem, Quantity)) {
+            if (MakeOrders(selectedFoodItem._id, Quantity)) {
                 setOrderInProgress(true)
             }
 
@@ -72,8 +72,7 @@ export default function Payment() {
                         <TouchableOpacity
                             onPress={() => { navigation.goBack() }}
                             style={styles.backBtn}>
-
-                            <Ionicons name="ios-arrow-back-sharp" size={30} color="black" />
+                            <AntDesign name="arrowleft" size={30} color="black" />
                         </TouchableOpacity>
                     </View>
 
@@ -404,10 +403,6 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         justifyContent: "center",
         marginHorizontal: 15,
-
-
-
-
 
     }
 })

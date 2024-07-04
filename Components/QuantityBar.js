@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, StatusBar, Platform, ScrollView, Button, TouchableOpacity, TextInput } from
     'react-native';
-import { EvilIcons, Ionicons, FontAwesome5 } from '@expo/vector-icons';
+import { EvilIcons, FontAwesome5 , AntDesign } from '@expo/vector-icons';
 
 export default function QuantityBar({ SetQuantityProp, QuantityProp, sizeRatio = 1, BorderRadius = 20, Editable = true }) {
     // const [Quantity, SetQuantityProp] = useState(1);
@@ -25,7 +25,8 @@ export default function QuantityBar({ SetQuantityProp, QuantityProp, sizeRatio =
         <View style={[styles.QuantityBar, { height: 50 * sizeRatio, width: 120 * sizeRatio, borderRadius: BorderRadius }]}>
 
             <TouchableOpacity style={styles.BTN} onPress={() => handleChangeInQuantity("minus")}>
-                <Ionicons name="remove-sharp" size={26} color="black" />
+                {/* <Ionicons name="remove-sharp" size={26} color="black" /> */}
+                <AntDesign name="minus" size={24} color="black" />
             </TouchableOpacity>
 
             <TextInput
@@ -38,7 +39,9 @@ export default function QuantityBar({ SetQuantityProp, QuantityProp, sizeRatio =
             />
 
             <TouchableOpacity style={styles.BTN} onPress={() => handleChangeInQuantity("add")}>
-                <Ionicons name="md-add-sharp" size={26} color="black" />
+                {/* <Ionicons name="md-add-sharp" size={26} color="black" /> */}
+                <AntDesign name="plus" size={26} color="black" />
+
             </TouchableOpacity>
         </View>
     )

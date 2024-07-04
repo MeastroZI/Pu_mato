@@ -6,7 +6,7 @@ function App() {
     return <Index />;
 }
 
-registerRootComponent(App);
+// registerRootComponent(App);
 
 
 export default App

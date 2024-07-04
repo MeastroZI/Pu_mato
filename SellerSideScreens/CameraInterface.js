@@ -16,7 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-function CameraInterface() {
+function CameraInterface({navigation}) {
     // const [hasPermission, setHasPermission] = useState(null);
     const [camera, setCamera] = useState(null);
     const [permission, setHasPermission] = useState()
@@ -25,7 +25,6 @@ function CameraInterface() {
     const [PaddingAdjust, setPaddinAdjust] = useState()
     const screen_Ratio = height / width;
     // console.log(screen_Ratio)
-    const navigation = useNavigation();
 
     useEffect(() => {
         (async () => {

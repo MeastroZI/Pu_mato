@@ -10,10 +10,10 @@ import SellersPageFoodItems from '../SellerSideComponents/SellersPageFoodItems';
 import NavigationBar from '../SellerSideComponents/NavigationBar';
 
 
-export default function SellersPage() {
+export default function SellersPage({navigation}) {
     const [ShopImage, setShopeImage] = useState()
     const [ItemData, setItemData] = useState(false)
-    const navigation = useNavigation()
+    // const navigation = useNavigation()
     const Route = useRoute();
     const Data = useRef([{ Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 1000, Place: "Pit", URL: require('../Imgs/pexels-ash-376464.jpg'), id: 1 },
 

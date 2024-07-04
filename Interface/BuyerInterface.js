@@ -3,20 +3,22 @@ import { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, Keyboard, TouchableOpacity, SafeAreaView, Platform } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Dashboard from '../Screens/Dashboard';
 import Payment from '../Screens/Payment';
 import ShopGallary from '../Screens/ShopGallary';
 import { Entypo } from '@expo/vector-icons';
 import ShopePage from '../Screens/ShopePage';
 import Orders from '../Screens/Orders';
+import Login from './Login';
 
 
 
-export default function BuyerInterface() {
+export default function BuyerInterface({navigation}) {
   const [NabarHide, SetNavbarHide] = useState(false)
-  const navigationRef = useRef();
 
   useEffect(() => {
+    
     const HideNavbar = Keyboard.addListener('keyboardDidShow', () => {
       SetNavbarHide(true);
     });
@@ -31,42 +33,42 @@ export default function BuyerInterface() {
   }, []);
   const Stack = createNativeStackNavigator();
 
+
   const HandleNavbarPress = (name) => {
 
     if (name == "Order") {
 
-      navigationRef.current?.navigate("Orders");
+      navigation.navigate("Orders");
     }
     else if (name == "Shop") {
 
-      navigationRef.current?.navigate("FoodGallary");
+      navigation.navigate("FoodGallary");
     }
     else {
 
 
-      navigationRef.current?.navigate("Dashboard");
+      navigation.navigate("Dashboard");
     }
 
   }
 
   return (
     <>
-      <NavigationContainer ref={navigationRef}>
 
-        <Stack.Navigator initialRouteName='Dashboard'
-          screenOptions={{
-            headerShown: false
-          }}
-        >
-          <Stack.Screen name='Dashboard' component={Dashboard} options={{ headerTitle: null, animation: 'none' }} />
+      <Stack.Navigator initialRouteName='Dashboard'
+        screenOptions={{
+          headerShown: false
+        }}
+      >
+        <Stack.Screen name='Dashboard' component={Dashboard} options={{ headerTitle: null, animation: 'none' }} />
+        <Stack.Screen name='Login' component={Login} options={{ headerTitle: null, animation: 'none' }} />
+        <Stack.Screen name='Orders' component={Orders} options={{ headerTitle: null, animation: 'none' }} />
+        <Stack.Screen name='Payment' component={Payment} options={{ headerTitle: null, animation: 'none' }} />
+        <Stack.Screen name='FoodGallary' component={ShopGallary} options={{ headerTitle: null, animation: 'none' }} />
+        <Stack.Screen name='ShopePage' component={ShopePage} options={{ headerTitle: null, animation: 'none' }} />
 
-          <Stack.Screen name='Orders' component={Orders} options={{ headerTitle: null, animation: 'none' }} />
-          <Stack.Screen name='Payment' component={Payment} options={{ headerTitle: null, animation: 'none' }} />
-          <Stack.Screen name='FoodGallary' component={ShopGallary} options={{ headerTitle: null, animation: 'none' }} />
-          <Stack.Screen name='ShopePage' component={ShopePage} options={{ headerTitle: null, animation: 'none' }} />
+      </Stack.Navigator>
 
-        </Stack.Navigator>
-      </NavigationContainer>
 
       <View style={{ ...styles.Navbar, display: NabarHide ? 'none' : 'flex' }} >
         <TouchableOpacity onPress={() => HandleNavbarPress("Home")} style={styles.iconContainer}>

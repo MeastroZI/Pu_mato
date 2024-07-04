@@ -1,5 +1,5 @@
 import userDetails from "../SharedVariable/userDetails";
-export default async function fetchOrds ( ) {
+export default async function MakeOrders (Id , Quantity) {
     const ip = process.env.EXPO_PUBLIC_API_IP;
     const userD = userDetails()
     if (!userD.sucess){
@@ -9,10 +9,12 @@ export default async function fetchOrds ( ) {
         UserData : {
             email: userD.Email,
             password: userD.Password
-        }
+        },
+        ItemId : Id , 
+        Quantity : Quantity
     }
     const Options = {
-        method : "GET" ,
+        method : "POST" ,
         headers : {
              "Content-Type" : "application/json" ,
 
@@ -21,7 +23,7 @@ export default async function fetchOrds ( ) {
     }
    
     try {
-        const response = await fetch(`http://${ip}:8000/Fetch_Orders` , Options)
+        const response = await fetch(`http://${ip}:8000/MakeOrders` , Options)
 
         if(!response.ok) {
             throw new Error (`Bhi error aya he :(   ERROR : ${response.Error}`)

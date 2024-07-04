@@ -1,28 +1,28 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, TextInput, TouchableOpacity, KeyboardAvoidingView, Image } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import OrdersItem from '../Components/OrdersItem';
 import fetchOrds from '../Apis/Fetch_Orders';
 
 // import { items, cancleOrder } from '../SharedVariable/OrderListVar';
 
-export default function Orders() {
-  const navigation = useNavigation();
-  const [items , SetItems] = useState ([]) 
+export default function Orders({navigation}) {
+  // const navigation = useNavigation();
+  const [items, SetItems] = useState([])
 
   const [cancleOrderUpdate, CancleOrder] = useState(true);
 
-  useEffect (()=>{
+  useEffect(() => {
     FetchOrders()
   }, [])
 
 
-  const FetchOrders = () =>{
-    fetchOrds().then ((data)=>{
+  const FetchOrders = () => {
+    fetchOrds().then((data) => {
       SetItems([...data])
-    }).catch ((err)=>{
-      console.log (err) ;
+    }).catch((err) => {
+      console.log(err);
     })
   }
 
@@ -42,7 +42,7 @@ export default function Orders() {
           onPress={() => { navigation.goBack() }}
           style={styles.backBtn}>
 
-          <Ionicons name="ios-arrow-back-sharp" size={30} color="black" />
+          <AntDesign name="arrowleft" size={30} color="black" />
         </TouchableOpacity>
         <View style={styles.HeaderContainer}>
           <Text style={styles.TextHeader}>My Orders</Text>

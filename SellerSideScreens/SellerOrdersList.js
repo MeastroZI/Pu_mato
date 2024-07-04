@@ -3,12 +3,12 @@ import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, Te
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import SellerOrdersItem from '../SellerSideComponents/SellerOrdersItem';
-import { items, cancleOrder } from '../SharedVariable/OrderListVar';
+
 
 import NavigationBar from '../SellerSideComponents/NavigationBar';
 
-export default function SellerOrderList() {
-  const navigation = useNavigation();
+export default function SellerOrderList({navigation}) {
+  // const navigation = useNavigation();
 
   const [cancleOrderUpdate, CancleOrder] = useState(true);
 
@@ -30,7 +30,7 @@ export default function SellerOrderList() {
           onPress={() => { navigation.goBack() }}
           style={styles.backBtn}>
 
-          <Ionicons name="ios-arrow-back-sharp" size={30} color="black" />
+          <Ionicons name="arrow-back" size={30} color="black" />
         </TouchableOpacity>
         <View style={styles.HeaderContainer}>
           <Text style={styles.TextHeader}>My Orders</Text>

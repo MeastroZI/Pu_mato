@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, TextInput, TouchableOpacity, KeyboardAvoidingView, Image } from 'react-native';
-import { EvilIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
+import { EvilIcons, Ionicons, FontAwesome , AntDesign } from '@expo/vector-icons';
 import QuantityBar from './QuantityBar';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
@@ -23,9 +23,6 @@ export default function OrdersItem({ itemInfo, cancleOrder }) {
                 <TouchableOpacity onPress={() => cancleOrder(itemInfo.id)} style={styles.CancleOrderBtn}>
                     <FontAwesome name="remove" size={16} color="white" />
                 </TouchableOpacity>
-
-
-
 
                 <View style={styles.TxtContainer}>
                     <Text style={{ fontSize: 23, fontWeight: '600' }}>{itemInfo.Name}</Text>

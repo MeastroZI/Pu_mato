@@ -7,9 +7,9 @@ import ShopeItems from '../Components/ShopeItems';
 
 
 
-export default function ShopePage() {
+export default function ShopePage({navigation}) {
     const Route = useRoute()
-    const navigation = useNavigation();
+    // const navigation = useNavigation();
     const { ShopeInfo } = Route.params;
     // const ShopeInfo = { Name: "Subway", Logo: require('../Imgs/103849129-Untitled-1.jpg') }
 
@@ -40,7 +40,7 @@ export default function ShopePage() {
                         onPress={() => { navigation.goBack() }}
                         style={styles.backBtn}>
 
-                        <Ionicons name="ios-arrow-back-sharp" size={30} color="black" />
+                        <Ionicons name="arrow-back" size={30} color="black" />
                     </TouchableOpacity>
                     <Image source={{uri:ShopeInfo.Logo}} style={styles.imageStyle} />
                     <Text style={styles.ShopeNameTxt}>{ShopeInfo.Name} </Text>

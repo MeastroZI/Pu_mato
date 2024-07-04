@@ -10,11 +10,12 @@ import fetchData from '../Apis/Fetch_DashBoard_data.js';
 
 
 
-export default function Dashboard() {
+export default function Dashboard({navigation}) {
   
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const [newData , setNewData] = useState([])
   const Data = useRef([]);
+  const ids = useRef(0);
   console.log(newData)
   useEffect(()=>{
     fetchingData();
@@ -39,6 +40,8 @@ export default function Dashboard() {
   
 
   const HandleEndReached = ()=>{
+      console.log("han")
+  
       fetchingData();
   }
 
@@ -50,9 +53,6 @@ export default function Dashboard() {
   return (
     <View style={styles.Container}>
       <SafeAreaView style={styles.FoodItemsCont} >
-
-
-
         <View style={styles.searchContainer}>
           <AntDesign name="search1" size={20} color="#aaa" style={styles.searchIcon} />
           <TextInput
@@ -62,11 +62,6 @@ export default function Dashboard() {
 
           />
         </View>
-
-
-
-
-
         <View style={styles.FlatListContainer}>
           <FlatList
 
@@ -76,21 +71,15 @@ export default function Dashboard() {
               <TouchableOpacity style={styles.viewChild} onPress={() => { HandleItemClick(item) }} activeOpacity={0.5}>
                 <FoodItems Name={item.Name} discription={item.discription} price={item.price} Place={item.Place} URL={item.URL} />
               </TouchableOpacity>}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={() => ids.current = ids.current+1}
             onEndReached={HandleEndReached}
-            onEndReachedThreshold={0.7}
+            onEndReachedThreshold={0.2}
               >
             
 
           </FlatList>
 
         </View>
-
-
-
-
-
-
 
 
 
