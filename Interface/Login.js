@@ -10,16 +10,22 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState('');
   const [email , setEmail] = useState('')
   const [imageHidden, setHideImage] = useState(false);
-  useEffect(() => {
+  useEffect( async () => {
     // const result =await userDetails();
     // if (result.sucess){
     //   navigation.navigate('SellerSideComponents')
     // }
-    userDetails().then((result)=>{
-      if (result.sucess){
+    const data = await userDetails() ;
+    console.log(data)
+    if(data.sucess){
+      console.log({email : data.Email, password: data.Password})
+      console.log("running")
+      const isAuthenticate = await LoginApi({email : data.Email, password: data.Password , accountType : data.AccountType});
+      if(isAuthenticate){
         navigation.navigate('SellerSideComponents')
       }
-    })
+    }
+
     const hideImage = Keyboard.addListener('keyboardDidShow', () => {
       setHideImage(true);
     });
@@ -48,7 +54,6 @@ export default function Login({ navigation }) {
 
   return (
     <SafeAreaView style={styles.SafeAreaCont}>
-
       <View style={styles.ParentContainer}>
 
         <View style={[styles.ImageContainer, { display: imageHidden ? "none" : "flex" }]}>

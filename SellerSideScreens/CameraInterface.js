@@ -1,176 +1,97 @@
-import React, { useRef, useState } from 'react'
-import { useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView, Keyboard, Image, Dimensions } from 'react-native';
-import { Camera, CameraType } from 'expo-camera';
-import * as ImagePicker from 'expo-image-picker';
-import * as Permissions from 'expo-permissions';
+import React, { useRef, useState, useEffect } from 'react';
+import { StyleSheet, View, SafeAreaView, TouchableOpacity, StatusBar, Dimensions , Platform } from 'react-native';
+import { Camera , useCameraPermissions , CameraView , CameraType} from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import { FontAwesome } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Loading from '../Components/loading';
+import setProfileImg from '../Apis/setProfilePhoto';
 
-
-
-
-
-
-
-
-function CameraInterface({navigation}) {
-    // const [hasPermission, setHasPermission] = useState(null);
-    const [camera, setCamera] = useState(null);
-    const [permission, setHasPermission] = useState()
-    const { height, width } = Dimensions.get('window')
-    const [aspectRatio, setAspectRatio] = useState()
-    const [PaddingAdjust, setPaddinAdjust] = useState()
-    const screen_Ratio = height / width;
-    // console.log(screen_Ratio)
-
-    useEffect(() => {
-        (async () => {
-            const { status } = await Camera.requestCameraPermissionsAsync();
-            setHasPermission(status === 'granted');
-            // const ratios = await camera.getSupportedRatiosAsync();
-
-
-
-        })();
-    }, []);
-
-    const takePicture = async () => {
-        if (permission) {
-            const photo = await camera.takePictureAsync();
-            // setPhotoUri(photo.uri);
-            savePhotoToLibrary(photo.uri);
-            console.log(photo.uri)
-            navigation.navigate('SellersPage', { PhotoInfo: photo })
-
-        }
-    };
-
-    const prepareRatio = async () => {
-        if (Platform.OS === "android") {
-            const ratios = await camera.getSupportedRatiosAsync();
-            let Coles_Of_Ratio_n_dist = {}
-            let MinDistanceRatioString = null;
-            console.log(ratios)
-            for (const ratio of ratios) {
-                const HWnum = ratio.split(':');
-                const CurrentRatio = parseInt(HWnum[0]) / parseInt(HWnum[1]);
-                const distance = screen_Ratio - CurrentRatio;
-                console.log(`distance of the ratio : ${ratio} is ${distance}`)
-                Coles_Of_Ratio_n_dist[ratio] = distance;
-                if (MinDistanceRatioString === null) {
-                    MinDistanceRatioString = ratio;
-                }
-                else {
-                    if (distance >= 0 && distance < Coles_Of_Ratio_n_dist[MinDistanceRatioString]) {
-                        MinDistanceRatioString = ratio;
-                    }
-
-                }
-
-
-
-
-            }
-            const reminaingPading = Math.floor(((Coles_Of_Ratio_n_dist[MinDistanceRatioString]) * width) / 2);
-            console.log(reminaingPading)
-
-            console.log(MinDistanceRatioString)
-            return { ratio: MinDistanceRatioString, padding: reminaingPading }
-        }
-    }
-    const CameraIsReady = async () => {
-        try {
-            const value = await AsyncStorage.getItem('Aspect_ratio_n_padding');
-            if (value === null) {
-                console.log("if is called")
-                prepareRatio().then((res) => {
-                    AsyncStorage.setItem('Aspect_ratio_n_padding', JSON.stringify(res));
-                    setAspectRatio(res.ratio);
-                    setPaddinAdjust(res.padding);
-                }).catch((e) => { console.log(e) });
-            } else {
-                console.log("else is called")
-                const parsedValue = JSON.parse(value);
-                setAspectRatio(parsedValue.ratio);
-                setPaddinAdjust(parsedValue.padding);
-
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    };
-
-    const savePhotoToLibrary = async (photoUri) => {
-        if (photoUri) {
-            await MediaLibrary.saveToLibraryAsync(photoUri);
-        }
-    };
-
+function CameraInterface({ navigation }) {
+  const [permission, requestPermission] = useCameraPermissions();
+  const [isLoading , setIsLoading] = useState(false)
+  const [ Camera , setCamera] = useState(null);
+  if (!permission){
+    return <View></View>
+  }
+  console.log(permission.granted)
+  if(!permission.granted){
     return (
-        <View style={{ flex: 1, justifyContent: 'flex-start' }}>
-            <SafeAreaView style={styles.FoodItemsCont} >
+      <View style={styles.container}>
+        <Text style={styles.message}>We need your permission to show the camera</Text>
+        <Button onPress={requestPermission} title="grant permission" />
+      </View>
+    )
+  }
+
+  const takePicture = async () => {
+    if (Camera != null) {
+      console.log("running")
+      const photo = await Camera.takePictureAsync();
+      console.log(photo);
+      setIsLoading(true);
+      savePhotoToLibrary(photo.uri);
+      navigation.navigate('SellersPage', { PhotoInfo: photo });
+      setProfileImg({URL : photo.uri})
+      setIsLoading(false)
+    }
+  };
 
 
 
-                <Camera
-                    style={{ flex: 1, marginTop: PaddingAdjust, marginBottom: PaddingAdjust }}
-                    type={Camera.Constants.Type.back}
-                    ratio={aspectRatio}
-                    ref={(ref) => setCamera(ref)}
-                    onCameraReady={CameraIsReady}
+  const savePhotoToLibrary = async (photoUri) => {
+    if (photoUri) {
+      await MediaLibrary.saveToLibraryAsync(photoUri);
+    }
+  };
 
-                >
+ 
 
-
-                </Camera>
-
-                <View style={styles.MaskStyle}>
-
-                    <TouchableOpacity
-                        style={{ marginVertical: 30 }}
-
-                        onPress={takePicture}
-                    >
-                        <FontAwesome name="camera" size={50} color="white" />
-                    </TouchableOpacity>
-                </View>
-                {/* {photoUri && (
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Image source={{ uri: photoUri }} style={{ width: 300, height: 400 }} />
-                </View>
-            )} */}
-
-            </SafeAreaView>
-        </View >
-    );
+  return (
+    <View style={{ flex: 1 }}>
+      <SafeAreaView style={styles.container}>
+        <CameraView style={styles.camera} ref={(node)=>{setCamera(node)}}>
+        <Loading isLoading={isLoading}></Loading>
+          <View style={styles.mask}>
+            <TouchableOpacity style={{ marginVertical: 30 }} onPress={takePicture}>
+              <FontAwesome name="camera" size={50} color="white" />
+            </TouchableOpacity>
+          </View>
+        </CameraView>
+      </SafeAreaView>
+    </View>
+  );
 }
 
 
 const styles = StyleSheet.create({
-    MaskStyle: {
-        position: 'absolute',
-        height: '65%',
-        width: '100%',
-        // backgroundColor: 'black',
-        bottom: 0,
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-
-        // opacity: 0.8,
-        // backgroundColor: 'rgba(0,0,0,0.7)'
-
-
-    },
-    FoodItemsCont: {
-
-        height: "100%",
-        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-
-    },
-})
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  message: {
+    textAlign: 'center',
+    paddingBottom: 10,
+  },
+  camera: {
+    flex: 1,
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+    margin: 64,
+  },
+  button: {
+    flex: 1,
+    alignSelf: 'flex-end',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+});
 
 export default CameraInterface;
-

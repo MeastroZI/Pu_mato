@@ -13,6 +13,7 @@ export default async function LoginApi(Data){
         },
         body : JSON.stringify({UserData : Data})
     }
+    console.log("sending the req")
     try{
         const response = await fetch(`http://${ip}:8000/Login` , Options)
         console.log(response)

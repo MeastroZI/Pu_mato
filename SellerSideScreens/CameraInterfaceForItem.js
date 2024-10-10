@@ -50,57 +50,6 @@ export default function CameraInterfaceForItem({ navigation }) {
         }
     };
 
-    // const prepareRatio = async () => {
-    //     if (Platform.OS === "android") {
-    //         const ratios = await camera.getSupportedRatiosAsync();
-    //         let Coles_Of_Ratio_n_dist = {}
-    //         let MinDistanceRatioString = null;
-    //         console.log(ratios)
-    //         for (const ratio of ratios) {
-    //             const HWnum = ratio.split(':');
-    //             const CurrentRatio = parseInt(HWnum[0]) / parseInt(HWnum[1]);
-    //             const distance = screen_Ratio - CurrentRatio;
-    //             console.log(`distance of the ratio : ${ratio} is ${distance}`)
-    //             Coles_Of_Ratio_n_dist[ratio] = distance;
-    //             if (MinDistanceRatioString === null) {
-    //                 MinDistanceRatioString = ratio;
-    //             }
-    //             else {
-    //                 if (distance >= 0 && distance < Coles_Of_Ratio_n_dist[MinDistanceRatioString]) {
-    //                     MinDistanceRatioString = ratio;
-    //                 }
-
-    //             }
-    //         }
-    //         const reminaingPading = Math.floor(((Coles_Of_Ratio_n_dist[MinDistanceRatioString]) * width) / 2);
-    //         console.log(reminaingPading)
-
-    //         console.log(MinDistanceRatioString)
-    //         return { ratio: MinDistanceRatioString, padding: reminaingPading }
-    //     }
-    // }
-    // const CameraIsReady = async () => {
-    //     try {
-    //         const value = await AsyncStorage.getItem('Aspect_ratio_n_padding');
-    //         if (value === null) {
-    //             console.log("if is called")
-    //             prepareRatio().then((res) => {
-    //                 AsyncStorage.setItem('Aspect_ratio_n_padding', JSON.stringify(res));
-    //                 setAspectRatio(res.ratio);
-    //                 setPaddinAdjust(res.padding);
-    //             }).catch((e) => { console.log(e) });
-    //         } else {
-    //             console.log("else is called")
-    //             const parsedValue = JSON.parse(value);
-    //             setAspectRatio(parsedValue.ratio);
-    //             setPaddinAdjust(parsedValue.padding);
-
-    //         }
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // };
-
     const savePhotoToLibrary = async (photoUri) => {
         if (photoUri) {
             await MediaLibrary.saveToLibraryAsync(photoUri);
@@ -123,17 +72,7 @@ export default function CameraInterfaceForItem({ navigation }) {
     function toggleCameraFacing() {
         setFacing(current => (current === 'back' ? 'front' : 'back'));
     }
-    // return (
-    //     <View style={styles.container}>
-    //         <CameraView style={styles.camera} facing={facing}>
-    //             <View style={styles.buttonContainer}>
-    //                 <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-    //                     <Text style={styles.text}>Flip Camera</Text>
-    //                 </TouchableOpacity>
-    //             </View>
-    //         </CameraView>
-    //     </View>
-    // );
+  
     return (
         <View style={{ flex: 1, justifyContent: 'flex-start' }}>
             <SafeAreaView style={styles.FoodItemsCont} >

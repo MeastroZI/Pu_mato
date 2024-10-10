@@ -8,38 +8,28 @@ import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import SellersPageFoodItems from '../SellerSideComponents/SellersPageFoodItems';
 import NavigationBar from '../SellerSideComponents/NavigationBar';
+import getDto from '../DTOS/SellerDTO';
 
 
 export default function SellersPage({navigation}) {
     const [ShopImage, setShopeImage] = useState()
     const [ItemData, setItemData] = useState(false)
-    // const navigation = useNavigation()
+    
+    let DTOdata 
+    let Data 
+
+    const navigation = useNavigation()
+    
     const Route = useRoute();
-    const Data = useRef([{ Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 1000, Place: "Pit", URL: require('../Imgs/pexels-ash-376464.jpg'), id: 1 },
-
-    { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 10, Place: "Pit", URL: require('../Imgs/pexels-jane-doan-1099680.jpg'), id: 2 },
-
-    { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 1000, Place: "Piet", URL: require('../Imgs/pexels-jane-doan-1099680.jpg'), id: 3 },
-
-    { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 100, Place: "Piet", URL: require('../Imgs/pexels-jane-doan-1099680.jpg'), id: 4 },
-
-    { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 100000, Place: "Piet", URL: require('../Imgs/pexels-jane-doan-1099680.jpg'), id: 5 },
-    { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 100000, Place: "Piet", URL: require('../Imgs/pexels-jane-doan-1099680.jpg'), id: 6 },
-    { Name: "Dabeli", discription: "Lorem ipsum dolor, sit amet consectetur  ", price: 100000, Place: "Piet", URL: require('../Imgs/pexels-jane-doan-1099680.jpg'), id: 7 },]).current
-
-
+  
 
 
     useEffect(() => {
-        if (Route.params && Route.params.PhotoInfo) {
-            setShopeImage(Route.params.PhotoInfo)
-        }
-        if (Route.params && Route.params.ChangeDetail) {
-            // console.log(Data)
-        }
-
-
-
+        const DTOobj = getDto();
+        DTOobj.setProfileIMG()
+        DTOobj.setShopeItem()
+        DTOdata = DTOobj.getUserData();
+        Data = useRef (DTOdata.ShopeItem);
     })
 
 
@@ -63,7 +53,6 @@ export default function SellersPage({navigation}) {
         }
         else if (params == "Orders") {
             navigation.navigate('SellerOrderList')
-           
         }
     }
     return (
@@ -71,7 +60,7 @@ export default function SellersPage({navigation}) {
             <View style={styles.Container}>
                 <View style={styles.ImageFrame}>
                     <Image
-                        source={ShopImage ? { uri: ShopImage.uri } : require('../Imgs/Shope.png')}
+                        source={(Data  && Data.ProfileURL) ? { uri: Data.ProfileURL} : require('../Imgs/Shope.png')}
                         style={styles.ImageStyle}
                     />
 

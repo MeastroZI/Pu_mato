@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, FlatList, SafeAreaView, Platform, StatusBar, Te
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Loading from '../Components/loading';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import sendFoodItem from '../Apis/SendFoodItems';
 
 
 export default function ItemsDetail({ navigation }) {
@@ -42,28 +43,33 @@ export default function ItemsDetail({ navigation }) {
 
 
     }
-    const HandleSaveBtn = () => {
-        console.log("under hadnin")
+    const HandleSaveBtn = async () => {
+     
         setIsLoading(true)
-        setTimeout(() => {
-            console.log("making it of")
+
+        console.log("making it of")
+        
+
+        if (itemName == "" || itemPrice <= 0) {
+
+            Keyboard.dismiss()
+
+            StartFadeOffAnimation();
+        }
+        else {
+            iteminfoo.Name = itemName;
+            iteminfoo.price = itemPrice;
+            iteminfoo.discription = ItemDetail;
+            iteminfoo.URL = imageUri.uri;
+            // const res = await fetch(iteminfoo.URL)
+            // const imageData = await res.blob();
             setIsLoading(false)
+            sendFoodItem(iteminfoo);
+            // navigation.navigate('SellersPage', { ChangeDetail: iteminfoo })
 
-            if (itemName == "" || itemPrice <= 0) {
+        }
+        
 
-                Keyboard.dismiss()
-
-                StartFadeOffAnimation();
-            }
-            else {
-                iteminfoo.Name = itemName;
-                iteminfoo.price = itemPrice;
-                iteminfoo.discription = ItemDetail;
-                iteminfoo.URL = imageUri;
-                navigation.navigate('SellersPage', { ChangeDetail: iteminfoo })
-
-            }
-        }, 5000);
     }
     const handleEditImage = () => {
         navigation.navigate("CameraInterfaceForItem")

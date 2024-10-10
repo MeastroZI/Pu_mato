@@ -21,7 +21,7 @@ export default async function fetchOrds ( ) {
     }
    
     try {
-        const response = await fetch(`http://${ip}:8000/Fetch_Orders` , Options)
+        const response = await fetch(`https://${ip}:8000/Fetch_Orders` , Options)
 
         if(!response.ok) {
             throw new Error (`Bhi error aya he :(   ERROR : ${response.Error}`)

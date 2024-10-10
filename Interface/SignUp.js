@@ -14,6 +14,7 @@ export default function SignUp({ navigation }) {
     const [email, setEmail] = useState('');
     const [code, setCode] = useState('');
     const [name, setName] = useState('');
+    const [accountType , setAccountType] = useState("Customer");
 
     const [isKeyBoard, setKeyBoard] = useState(false);
     const [codeSended, setCodeSended] = useState(false);
@@ -58,13 +59,15 @@ export default function SignUp({ navigation }) {
         const response = await authenticate({
             email: email,
             password: password,
-            code: parseInt(code)
+            code: parseInt(code),
+            accountType : accountType
         })
         if (response.sucess) {
             AsyncStorage.setItem('@Email', email)
             AsyncStorage.setItem('@Password', password)
             AsyncStorage.setItem('@UserName', name)
-            navigation.navigate('BuyerSideComponents', params = {
+            AsyncStorage.setItem('@AccountType', accountType)
+            navigation.navigate(accountType == "Customer" ? 'BuyerSideComponents' : "SellerSideComponents" , params = {
                 Email: email,
                 Password: password,
                 name: name
@@ -72,6 +75,15 @@ export default function SignUp({ navigation }) {
         }
         else {
             showError(response.message)
+        }
+    }
+
+    handleAccountType = ()=>{
+        if(accountType == "Customer"){
+            setAccountType("Business")
+        }
+        else {
+            setAccountType ("Customer")
         }
     }
 
@@ -170,15 +182,14 @@ export default function SignUp({ navigation }) {
                         </TouchableOpacity>
                     </View>
 
-                    {/* <View style={styles.inputContainer}>
-            <Text style={styles.label}>Phone Number</Text>
-            <TextInput
-              style={styles.inputStyle}
-              placeholder='Enter your phone number'
-              keyboardType='phone-pad'
-            />
-          </View> */}
-
+                    <View style={styles.accountTypeSelector}> 
+                        <TouchableOpacity onPress={handleAccountType} style = {{...styles.accountTypeSelectorOp , backgroundColor : accountType == "Business" ? "#3f36f5" : "#a3a3a3"}}> 
+                            <Text style={styles.accountTypeText} >Business account</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity  onPress={handleAccountType}  style = {{...styles.accountTypeSelectorOp , backgroundColor : accountType == "Customer" ? "#3f36f5" : "#a3a3a3"}}>
+                            <Text style={styles.accountTypeText}>Customer account</Text> 
+                        </TouchableOpacity>
+                    </View>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.orderBtn} onPress={AuthenticateUser} >
                             <Text style={{ color: '#ffffff', fontSize: 18, fontWeight: "500" }}>
@@ -276,4 +287,27 @@ const styles = StyleSheet.create({
         backgroundColor: "#ed7032",
         marginHorizontal: 10,
     },
+    accountTypeSelector : {
+        width : '100%' ,
+        flexDirection : 'row' ,
+        alignItems : 'center' ,
+        justifyContent : 'center',
+        gap : 30 
+
+    },
+    accountTypeSelectorOp : {
+        height : 40 ,
+        width : 130 ,
+        backgroundColor : "#0e3eff",
+        justifyContent : "center",
+        alignItems : 'center',
+        justifyContent : 'center',
+        borderRadius : 5 
+    },
+    accountTypeText : {
+        fontSize: 13, 
+        fontWeight: "500" ,
+        color : "#ffffff"
+    }
+    
 });
